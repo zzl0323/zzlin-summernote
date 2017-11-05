@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+		<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.css"/>
+		<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="node_modules/summernote/dist/summernote.css" />
+		<script rel="stylesheet" src="node_modules/summernote/dist/summernote.js" /></script>
+		<link rel="stylesheet" type="text/css" href="zzl-css.css"/>
+		<title></title>
+		<style>
+			.zzl-inp{
+				height: 50px;
+				font-size: 20px;
+				margin-bottom: 20px;
+			}
+			p{
+				display: inline;
+			}
+			.aaa{
+				text-align: left;
+			}
+			.zzl-change-id{
+				width:50px;
+				display: inline;
+			}
+			.zzl-change-title{
+				width:100px;
+				display: inline;
+			}
+			.zzl-change-detail{
+				width:150px;
+				display: inline;
+			}
+			.shanchu{
+				font-size: 20px;
+			}
+			.shanchu span{
+				font-weight: 800;
+			}
+		</style>
+		
+	</head>
+	<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          	<h1 class="page-header">Dashboard</h1>
+
+          	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			      </div>
+			      <div class="modal-body">
+			      	
+			      	<h3>TITLE:</h3>
+			      	<input type="text" class="form-control zzl-inp" id="exampleInputName2" placeholder="title">
+			      	<h3>CONTENT:</h3>
+			       	<div class="zzl-alt"></div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary zzl-btn">Save changes</button>
+			        
+			      </div>
+			     	<div class="modal-footer aaaa">
+				        <p class="shanchu">
+				          	<span>id:</span><input type="text" class="form-control zzl-change-id" id="exampleInputName2">
+				          	<span>title:</span><input type="text" class="form-control zzl-change-title" id="exampleInputName2">
+				          	<span>detail:</span><input type="text" class="form-control zzl-change-detail" id="exampleInputName2">
+				          	<button type="button" class="btn btn-primary zzl-change">修改</button>
+				        </p>
+			     	</div>
+			      
+			    </div>
+			  </div>
+			</div>
+
+			
+			
+          <h2 class="sub-header">Section title</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>title</th>
+                  <th>detail</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+		
+		<script type="text/javascript">
+			$(function(){
+				function zhaozilin(){
+					$.ajax({
+						url:"http://localhost:3000/item/title",
+						type:'GET',
+						success:function(e){
+							$('tbody').html('')
+							for(var i in e){
+								$('tbody').append('<tr><th>'+e[i].id+'</th><th>'+e[i].title+'</th><th>'+e[i].detail+'</th><th><button data-a='+e[i].id+'>删除</button></th></tr>')
+							}
+						}
+					})
+				}
+				zhaozilin()
+				$('tbody').on('click','button',function () {
+					var id=$(this).attr('data-a')
+					var _this=this
+					$.ajax({
+						url:"http://localhost:3000/item/delete",
+						type:"POST",
+						data:{id:id},
+						success:function(e){
+							zhaozilin()
+							
+						}
+					})
+				})
+				$('.zzl-alt').summernote()
+				$('.zzl-btn').click(function(){
+					var title=$('.zzl-inp').val()
+					var detail=$('.zzl-alt').summernote('code');
+					$.ajax({
+						url:'http://localhost:3000/item/tianjia',
+						type:'POST',
+						data:{
+							'title':title,
+							'detail':detail
+						},
+						success:function(e){
+							zhaozilin()
+                        	$('.zzl-inp').val('')
+						}
+					})
+				})
+				
+				$('.zzl-change').click(function(){
+					var id=$('.zzl-change-id').val();
+					var title=$('.zzl-change-title').val();
+					var detail=$('.zzl-change-detail').val();
+					$.ajax({
+						url:'http://localhost:3000/item/change',
+						type:'POST',
+						data:{
+							'id':id,
+							'title':title,
+							'detail':detail
+						},
+						success:function(e){
+							zhaozilin()
+							$('.zzl-change-id').val('')
+							$('.zzl-change-title').val('')
+							$('.zzl-change-detail').val('')
+						}
+					})
+				})
+				
+				
+				
+				
+				
+			})
+			
+			
+			
+			
+			
+		</script>
+		
+		
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+		<title></title>
+		<style>
+			textarea{
+				width: 200px;
+				height: 200px;
+				list-style: none;
+			}
+		</style>
+	</head>
+	<body>
+		<p><input type="text" name="title"/></p>
+		<textarea name="detail">
+			
+		</textarea>
+		<button>添加</button>
+		
+		<script type="text/javascript">
+			
+			$('button').click(function(){
+				var title=$('input').val();
+				var detail=$('textarea').val();
+				console.log(title)
+				console.log(detail)
+				$.ajax({
+					url:"http://localhost:3000/item/tianjia",
+					type:'POST',
+					data:{
+						'title':title,
+						'detail':detail
+					},
+					success:function(e){
+						var str = '';
+                            str+='<h2>'+e[e.length-1].title+'</h2><p>'+e[e.length-1].detail+'</p>'
+                        $("body").append(str)
+	                }
+						
+				})
+			})
+				
+			
+		</script>
+	</body>
+</html>

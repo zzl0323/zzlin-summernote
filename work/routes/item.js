@@ -9,23 +9,28 @@ var connection=mysql.createPool({
 	
 })
 router.get('/title',function(req,res,next){
-	connection.query('SELECT title,detail FROM work', function(err, rows, fields) {
+	connection.query('SELECT id,title,detail FROM work', function(err, rows, fields) {
     	res.header('Access-Control-Allow-Origin',"*")
         if (err) throw err;
         	res.send(rows);
    });
 })
+
+router.post('/delete',function(req,res,next){
+	var abc=req.body.id;
+	connection.query('DELETE FROM work WHERE id='+abc+' ',function(err, rows, fields) {
+	    res.header('Access-Control-Allow-Origin',"*")
+	    if (err) throw err;
+	    res.send(rows);
+	})
+})
+
 router.post('/tianjia',function(req,res,next){
 	res.header('Access-Control-Allow-Origin',"*")
 	var title=req.body.title;
 	var detail=req.body.detail;
-	console.log(title);
-	console.log(detail)
 	connection.query(`INSERT INTO work (title,detail) VALUES ('${title}','${detail}')`, function(err, rows, fields) {
-	    console.log(1)
-	    if (err) throw err;
 	    if(rows!=""||rows!=null){
-	    	console.log(title,detail);
 	        connection.query("SELECT * FROM work",function(err,rows){
 	        	res.send(rows)
 	      	})
@@ -34,7 +39,16 @@ router.post('/tianjia',function(req,res,next){
 })
 
 
-
+router.post('/change',function(req,res,next){
+	var id=req.body.id;
+	var title=req.body.title;
+	var detail=req.body.detail;
+	connection.query(`UPDATE work SET title='${title}',detail='${detail}' WHERE id='${id}'`,function(err, rows, fields) {
+	    res.header('Access-Control-Allow-Origin',"*")
+	    if (err) throw err;
+	    res.send(rows);
+	})
+})
 
 
 
